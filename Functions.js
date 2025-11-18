@@ -46,3 +46,15 @@ function memoise(fn) {
         return result
     }
 }
+
+function deepClone(obj) {
+    if(typeof obj!="object" || obj== null) return obj
+    
+    let clonedObj = Array.isArray(obj) ? [] : {}
+    
+    for(let [key,value] of Object.entries(obj)) {
+        clonedObj[key] = deepClone(value)
+    }
+    
+    return clonedObj
+}
