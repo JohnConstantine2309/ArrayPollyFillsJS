@@ -58,3 +58,48 @@ function recursive(obj, current) {
 
 recursive(nestedObj, "")
 console.log(flatObj)
+
+
+const arr = [
+    {
+        date: 'JAN',
+        value: 5,
+        weight: 9
+    },
+    {
+        date: 'JAN',
+        value: 2,
+        weight: 19
+    },
+    {
+        date: 'FEB',
+        value: 9,
+        weight: 1
+    },
+    {
+        date: 'FEB',
+        value: 10,
+        weight: 29
+    },
+    ]
+    
+function transform(arr, primarykey) {
+    const grouped= arr.reduce((acc, item) => {
+        const keyValue = item[primarykey]
+        
+        acc[keyValue] ??= {[primarykey]: keyValue}
+        
+        for(let [k,value] of Object.entries(item)) {
+            if(k!==primarykey) {
+                acc[keyValue][k]??=[]
+                acc[keyValue][k].push(value)
+            }
+        }
+        return acc;
+    }, [])
+    
+    return Object.values(grouped)
+}
+
+
+console.log(transform(arr, "date"))
